@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Rectangle()
         {
             Console.WriteLine("Ширина фигуры?");
             int width = Convert.ToInt32(Console.ReadLine());
@@ -32,7 +32,7 @@
                 }
                 Console.WriteLine();
 
-                for (int k = 0; k < (height-2); k++)
+                for (int k = 0; k < (height - 2); k++)
                 {
                     Console.Write(symbol);
                     for (int j = 0; j < (width - 2); j++)
@@ -48,6 +48,17 @@
                     Console.Write(symbol);
                 }
             }
+            Console.WriteLine("Повторить? y/n");
+            string? repeat = Console.ReadLine();
+            if (repeat == "y")
+            {
+                Rectangle();
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Rectangle();
         }
     }
 }
