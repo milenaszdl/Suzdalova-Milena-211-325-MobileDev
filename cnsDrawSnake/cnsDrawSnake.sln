@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Romb", "Romb.csproj", "{82A1E75A-F9D3-44BA-99CD-63680987E848}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cnsDrawSnake", "cnsDrawSnake.csproj", "{7E5670BB-69A7-4386-9549-E02EBCEAEEC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{82A1E75A-F9D3-44BA-99CD-63680987E848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82A1E75A-F9D3-44BA-99CD-63680987E848}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82A1E75A-F9D3-44BA-99CD-63680987E848}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82A1E75A-F9D3-44BA-99CD-63680987E848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E5670BB-69A7-4386-9549-E02EBCEAEEC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E5670BB-69A7-4386-9549-E02EBCEAEEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E5670BB-69A7-4386-9549-E02EBCEAEEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E5670BB-69A7-4386-9549-E02EBCEAEEC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {69A2D49A-EA6A-45B3-B903-C687D561955D}
+		SolutionGuid = {204A61C2-D130-43C6-9767-8BC425C8A6E3}
 	EndGlobalSection
 EndGlobal
