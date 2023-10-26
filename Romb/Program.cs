@@ -1,49 +1,112 @@
 ﻿
+using System;
+
 class Program
 {
     static void Main()
     {
-        int n = 3; //размер половины ромба
+        Console.WriteLine("Закрасить ромб внутри? y/n");
+        string? fill = Console.ReadLine();
 
-        //первая половина ромба
-        for (int i = 1; i <= n; i++)
+        int n = 5; //размер половины ромба
+
+        if (fill == "y")
         {
-            for (int j = 1; j <= n - i; j++)
+            for (int i = 0; i < n; i++)
             {
-                Console.Write(" ");
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    Console.Write(" ");
+                }
+
+                for (int j = 0; j < 2 * i + 1; j++)
+                {
+                    Console.Write("*");
+                }
+
+                Console.WriteLine();
             }
 
-            Console.Write("/");
-
-            for (int j = 2; j < 2 * i; j++)
+            //вторая половина ромба
+            for (int i = n - 2; i >= 0; i--)
             {
-                Console.Write(" ");
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    Console.Write(" ");
+                }
+
+                for (int j = 0; j < 2 * i + 1; j++)
+                {
+                    Console.Write("*");
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+
+        if (fill == "n") {
+            for (int k =0; k < 2 * n - 1; k++)
+            {
+                Console.Write("*");
             }
 
-            Console.Write("\\");
+            Console.WriteLine();
+
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    Console.Write("*");
+                }
+
+                for (int j = 0; j < 2 * i + 1; j++)
+                {
+                    Console.Write(" ");
+                }
+
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    Console.Write("*");
+                }
+
+                Console.WriteLine();
+            }
+
+
+            for (int i = n - 2; i >= 0; i--)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    Console.Write("*");
+                }
+
+                for (int j = 0; j < 2 * i + 1; j++)
+                {
+                    Console.Write(" ");
+                }
+
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    Console.Write("*");
+                }
+
+                Console.WriteLine();
+            }
+
+            for (int k = 0; k < 2 * n - 1; k++)
+            {
+                Console.Write("*");
+            }
 
             Console.WriteLine();
         }
 
-
-        //вторая половина ромба
-        for (int i = n ; i >= 1; i--)
-        {
-            for (int j = 1; j <= n - i; j++)
-            {
-                Console.Write(" ");
-            }
-
-            Console.Write("\\");
-
-            for (int j = 2; j < 2 * i; j++)
-            {
-                Console.Write(" ");
-            }
-
-            Console.Write("/");
-
-            Console.WriteLine();
+        Console.WriteLine("Повторить? y/n");
+        string? rep = Console.ReadLine();
+        if (rep == "y") {
+            Main();
         }
     }
+
 }
