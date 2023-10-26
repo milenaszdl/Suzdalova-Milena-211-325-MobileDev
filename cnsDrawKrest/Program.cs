@@ -2,9 +2,12 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            int n = 4;
+            Console.WriteLine("Высота половины креста?");
+
+            int n = Convert.ToInt32(Console.ReadLine());
+
             for (int i = n; i >= 1; i--)
             {
                 for (int j = 1; j <= n - i; j++)
@@ -42,6 +45,13 @@
                 Console.Write("\\");
 
                 Console.WriteLine();
+            }
+
+            Console.WriteLine("Повторить? y/n");
+            string? rep = Console.ReadLine();
+            if (rep == "y")
+            {
+                Main();
             }
         }
     }
