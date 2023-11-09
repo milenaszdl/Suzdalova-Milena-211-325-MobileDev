@@ -9,8 +9,8 @@
 
             Console.Write("Выберите ориентацию змейки (1 - вертикальная, 2 - горизонтальная): ");
             int orientation = Convert.ToInt32(Console.ReadLine());
-            int width = 10; // Ширина поля
-            int height = 10; // Высота поля
+            int width = 20; // ширина
+            int height = 10; // высота
 
             if (orientation == 1)
             {

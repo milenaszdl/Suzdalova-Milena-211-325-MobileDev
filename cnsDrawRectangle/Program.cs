@@ -48,6 +48,7 @@
                     Console.Write(symbol);
                 }
             }
+            Console.WriteLine() ;
             Console.WriteLine("Повторить? y/n");
             string? repeat = Console.ReadLine();
             if (repeat == "y")

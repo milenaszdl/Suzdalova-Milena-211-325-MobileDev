@@ -1,0 +1,42 @@
+﻿<Window x:Class="wpfHello.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfHello"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Height="75" Margin="80,67,0,0" VerticalAlignment="Top" Width="133" RenderTransformOrigin="0.5,0.5" Click="Button_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="28.128"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="114" Margin="371,134,0,0" VerticalAlignment="Top" Width="117" RenderTransformOrigin="0.5,0.5">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF98B498"/>
+                    <GradientStop Color="#FF57A14D" Offset="1"/>
+                    <GradientStop Color="#FF345B34" Offset="0.497"/>
+                    <GradientStop Color="#FE345C34" Offset="0.612"/>
+                    <GradientStop Color="#FF4B6F4B" Offset="0.38"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="32.538"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Border.RenderTransform>
+        </Border>
+        <Button x:Name="buAdd" Content="Button" HorizontalAlignment="Left" Margin="59,262,0,0" VerticalAlignment="Top" Height="79" Width="116"/>
+
+    </Grid>
+</Window>

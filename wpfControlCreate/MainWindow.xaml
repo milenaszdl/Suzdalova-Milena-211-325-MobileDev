@@ -1,0 +1,12 @@
+﻿<Window x:Class="wpfControlCreate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfControlCreate"
+        mc:Ignorable="d"
+        Title="wpfControlCreate" Height="450" Width="300">
+    <Canvas Name="main">
+        <Button Content= "11111" Canvas.Left="100" Canvas.Top="200"/>
+    </Canvas>
+</Window>
