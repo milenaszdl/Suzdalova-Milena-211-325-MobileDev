@@ -1,0 +1,45 @@
+﻿<Window x:Class="wpfCommand.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfCommand"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="300">
+    <Window.CommandBindings>
+        <CommandBinding x:Name="Close" Command="Close" Executed="Close_Executed"/>
+        <CommandBinding x:Name="InsertHello" Command="local:MyCommands.InsertHello" Executed="InsertHello_Executed"/>
+    </Window.CommandBindings>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Создать" Command="New"/>
+                <MenuItem Header="Открыть" Command="Open"/>
+                <MenuItem Header="Сохранить" Command="Save"/>
+                <MenuItem Header="Сохранить как" Command="SaveAs"/>
+                <Separator/>
+                <MenuItem Header="Выход" Command="Close"/>
+            </MenuItem>
+            <MenuItem Header="Правка">
+                <MenuItem Header="Отмена" Command="Undo"/>
+                <MenuItem Header="Вырезать" Command="Cut"/>
+                <MenuItem Header="Копировать" Command="Copy"/>
+                <MenuItem Header="Вставить" Command="Paste"/>
+                <MenuItem Header="Выделить все" Command="SelectAll"/>
+            </MenuItem>
+            <MenuItem Header="Формат"></MenuItem>
+            <MenuItem Header="Вид"></MenuItem>
+            <MenuItem Header="Справка"></MenuItem>
+        </Menu>
+        <ToolBar DockPanel.Dock="Top">
+            <Button Content="Сохранить" Command="Save"/>
+            <Button Content="Выход" Command="Close"/>
+            <Button Content="Вырезать" Command="Cut"/>
+            <Button Content="Копировать" Command="Copy"/>
+            <Button Content="Вставить" Command="Paste"/>
+            <Button Content="Время" Command="local:MyCommands.InsertTime"/>
+            <Button Content="Привет" Command="local:MyCommands.InsertHello"/>
+        </ToolBar>
+        <TextBox x:Name="edNote"/>
+    </DockPanel>
+</Window>
