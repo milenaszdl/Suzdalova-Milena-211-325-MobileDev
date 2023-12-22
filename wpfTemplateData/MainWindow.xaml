@@ -1,0 +1,57 @@
+﻿<Window x:Class="wpfTemplateData.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfTemplateData"
+        mc:Ignorable="d"
+        Title="wpfTemplateData" Height="450" Width="300">
+    <Window.Resources>
+        <ControlTemplate x:Key="textbox_error" TargetType="TextBox">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="Red" FontWeight="Bold">!!!</TextBlock>
+                <Border>
+                    <AdornedElementPlaceholder/>
+                </Border>
+                <TextBlock Foreground="Red" FontWeight="Bold">!!!</TextBlock>
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <ListBox x:Name="listBoxPhones" Grid.Row="0"/>
+
+        <ListBox x:Name="listBoxTasks" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="{Binding Path=TaskName}" FontSize="30"/>
+                        <TextBlock Text="{Binding Path=Description}"/>
+                        <TextBlock Text="{Binding Path=Priority}" Background="AliceBlue"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Name="stackPanel_add">
+            <Button x:Name="buAdd" Content="Add"/>
+            <TextBox Text="{Binding Path=TaskName}"></TextBox>
+            <TextBox Text="{Binding Path=Description}"></TextBox>
+            <TextBox>
+                <!--Validation.ErrorTemplate="{StaticResource textbox_error}">-->
+                <TextBox.Text>
+                    <Binding Path ="Priority">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </StackPanel>
+    </Grid>
+</Window>
