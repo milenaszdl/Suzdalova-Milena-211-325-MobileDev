@@ -38,14 +38,21 @@ namespace wpfPageViewer
             SelectedPics[2] = new Img();
 
             OpenFileDialog ofdPicture = new OpenFileDialog();
-            //ofdPicture.Multiselect = true;
+            ofdPicture.Multiselect = true;
             ofdPicture.Filter =
                 "Image files|*.bmp;*.jpg;*.gif;*.png;*.tif|All files|*.*";
             ofdPicture.FilterIndex = 1;
 
             if (ofdPicture.ShowDialog() == true)
             {
-                img0.Source = new Uri(ofdPicture.FileName);
+                //img0.Source = new Uri(ofdPicture.FileName);
+
+                int h = 0;
+                foreach(Img image in SelectedPics)
+                {
+                    image.Source = new Uri(ofdPicture.FileNames[h]);
+                    h++;
+                }
                 //int h = 0;
                 ////string[] fileNames = new string[3];
                 //foreach (string file in ofdPicture.FileNames)
@@ -79,27 +86,30 @@ namespace wpfPageViewer
             canvas.Height = page.Height;
             canvas.Background = Brushes.Aquamarine;
 
-            Image CanvasImage = new Image();
-            CanvasImage.Source = new BitmapImage(img0.Source);
-            CanvasImage.Width = 100;
-            CanvasImage.Height = 100;
-            Canvas.SetLeft(CanvasImage, 25);
-            Canvas.SetTop(CanvasImage, 25);
-            canvas.Children.Add(CanvasImage);
+            //Image CanvasImage = new Image();
+            //CanvasImage.Source = new BitmapImage(img0.Source);
+            //CanvasImage.Width = 100;
+            //CanvasImage.Height = 100;
+            //Canvas.SetLeft(CanvasImage, 25);
+            //Canvas.SetTop(CanvasImage, 25);
+            //canvas.Children.Add(CanvasImage);
 
 
-            //Image[] CanvasImages = new Image[3];
-            //int j = 0;
-            //foreach (Image image in CanvasImages)
-            //{
-            //    image.Source = new BitmapImage(SelectedPics[j].Source);
-            //    image.Width = (canvas.Width / 3);
-            //    image.Height = (canvas.Height / 3);
-            //    Canvas.SetLeft(image, 25);
-            //    Canvas.SetTop(image, 25);
-            //    canvas.Children.Add(image);
-            //    j++;
-            //}
+            Image[] CanvasImages = new Image[3];
+            CanvasImages[0] = new();
+            CanvasImages[1] = new();
+            CanvasImages[2] = new();
+            int j = 0;
+            foreach (Image image in CanvasImages)
+            {
+                image.Source = new BitmapImage(SelectedPics[j].Source);
+                image.Width = (canvas.Width / 3);
+                image.Height = (canvas.Height / 3);
+                Canvas.SetLeft(image, rnd.Next(25, 200));
+                Canvas.SetTop(image, rnd.Next(25,200));
+                canvas.Children.Add(image);
+                j++;
+            }
 
 
             PlaceForCanvas.Children.Add(canvas);
