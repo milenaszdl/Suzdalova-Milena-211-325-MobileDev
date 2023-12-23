@@ -23,7 +23,8 @@
                 <TextBlock>Lavender</TextBlock>
             </ComboBox>
             <Button Content="Загрузить изображения (макс 3)" Margin="10" Click="Button_Click"/>
-            <Button Content="Создать" Margin="20" Click="CreateCanvas"/>
+            <Button Content="Создать" Margin="10" Click="CreateCanvas" Width="150"/>
+            <Button Content="Сохранить" Click="SaveAsPNG" Width="150"/>
         </StackPanel>
         <StackPanel x:Name="PlaceForCanvas">
         </StackPanel>

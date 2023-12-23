@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,23 +54,7 @@ namespace wpfPageViewer
                     image.Source = new Uri(ofdPicture.FileNames[h]);
                     h++;
                 }
-                //int h = 0;
-                ////string[] fileNames = new string[3];
-                //foreach (string file in ofdPicture.FileNames)
-                //{
-                //    SelectedPics[h].Source = new Uri(file);
-                //    h++;
-                //    Console.WriteLine("fhghgh");
-                //}
 
-
-                //int i = 0;
-                //foreach (string fileName in fileNames)
-                //{
-                //    Console.WriteLine(fileName);
-                //    SelectedPics[i].Source = new Uri(fileName);
-                //    i++;
-                //}
             }
         }
 
@@ -85,15 +70,6 @@ namespace wpfPageViewer
             canvas.Width = page.Width;
             canvas.Height = page.Height;
             canvas.Background = Brushes.Aquamarine;
-
-            //Image CanvasImage = new Image();
-            //CanvasImage.Source = new BitmapImage(img0.Source);
-            //CanvasImage.Width = 100;
-            //CanvasImage.Height = 100;
-            //Canvas.SetLeft(CanvasImage, 25);
-            //Canvas.SetTop(CanvasImage, 25);
-            //canvas.Children.Add(CanvasImage);
-
 
             Image[] CanvasImages = new Image[3];
             CanvasImages[0] = new();
@@ -113,6 +89,47 @@ namespace wpfPageViewer
 
 
             PlaceForCanvas.Children.Add(canvas);
+        }
+
+        private void SaveAsPNG(object sender, RoutedEventArgs e)
+        {
+            foreach (UIElement element in PlaceForCanvas.Children)
+            {
+                if (element is Canvas)
+                {
+                    Canvas canvas = (Canvas)element;
+
+                    // Создаем RenderTargetBitmap для Canvas
+                    RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
+                        (int)canvas.ActualWidth, (int)canvas.ActualHeight,
+                        96d, 96d, PixelFormats.Default);
+
+                    // Рендерим Canvas на RenderTargetBitmap
+                    renderBitmap.Render(canvas);
+
+                    // Создаем диалоговое окно для выбора пути сохранения файла
+                    Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+                    saveFileDialog.Filter = "PNG Files (*.png)|*.png";
+                    saveFileDialog.DefaultExt = ".png";
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        // Создаем кодировщик для сохранения изображения в файл
+                        PngBitmapEncoder encoder = new PngBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+
+                        // Сохраняем изображение в выбранный файл
+                        using (FileStream file = File.Create(filePath))
+                        {
+                            encoder.Save(file);
+                        }
+                    }
+
+                    return; // Завершаем функцию после сохранения изображения
+                }
+                MessageBox.Show("Страница пуста, нельзя сохранить");
+            }
         }
     }
 }
