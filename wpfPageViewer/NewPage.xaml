@@ -21,7 +21,7 @@
                 <TextBlock>С фоторамками</TextBlock>
                 <TextBlock>Книга</TextBlock>
             </ComboBox>
-            <Button Content="Загрузить изображения (макс 3)" Margin="10" Click="Button_Click"/>
+            <Button Content="Загрузить изображения (5)" Margin="10" Click="Button_Click"/>
             <Button Content="Создать" Margin="10" Click="CreateCanvas" Width="150"/>
             <Button Content="Сохранить" Click="SaveAsPNG" Width="150"/>
         </StackPanel>

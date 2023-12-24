@@ -28,7 +28,7 @@ namespace wpfPageViewer
             InitializeComponent();
         }
 
-        Img[] SelectedPics = new Img[3];
+        Img[] SelectedPics = new Img[5];
 
         //Img img0 = new Img();
 
@@ -38,8 +38,8 @@ namespace wpfPageViewer
             SelectedPics[0] = new Img();
             SelectedPics[1] = new Img();
             SelectedPics[2] = new Img();
-            //SelectedPics[3] = new Img();
-            //SelectedPics[4] = new Img();
+            SelectedPics[3] = new Img();
+            SelectedPics[4] = new Img();
 
             OpenFileDialog ofdPicture = new OpenFileDialog();
             ofdPicture.Multiselect = true;
@@ -86,7 +86,7 @@ namespace wpfPageViewer
                 }
                 else if (back == "Книга")
                 {
-                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/bookback.jpg")));
+                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/bookback.jpg")));    
                     canvas.Background = imageBrush;
                 }
                 else canvas.Background = Brushes.BurlyWood;
@@ -94,12 +94,12 @@ namespace wpfPageViewer
                 //canvas.MouseLeftButtonUp += Image_MouseLeftButtonUp;
                 //canvas.MouseMove += Image_MouseMove;
 
-                Image[] CanvasImages = new Image[3];
+                Image[] CanvasImages = new Image[5];
                 CanvasImages[0] = new();
                 CanvasImages[1] = new();
                 CanvasImages[2] = new();
-                //CanvasImages[3] = new();
-                //CanvasImages[4] = new();
+                CanvasImages[3] = new();
+                CanvasImages[4] = new();
                 int j = 0;
                 foreach (Image image in CanvasImages)
                 {
