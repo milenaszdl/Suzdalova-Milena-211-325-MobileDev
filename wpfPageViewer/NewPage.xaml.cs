@@ -30,7 +30,7 @@ namespace wpfPageViewer
 
         Img[] SelectedPics = new Img[3];
 
-        Img img0 = new Img();
+        //Img img0 = new Img();
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,6 +38,8 @@ namespace wpfPageViewer
             SelectedPics[0] = new Img();
             SelectedPics[1] = new Img();
             SelectedPics[2] = new Img();
+            //SelectedPics[3] = new Img();
+            //SelectedPics[4] = new Img();
 
             OpenFileDialog ofdPicture = new OpenFileDialog();
             ofdPicture.Multiselect = true;
@@ -74,17 +76,17 @@ namespace wpfPageViewer
 
                 if (back == "С цветами")
                 {
-                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/flowerbackground.jpg"))); // Создаем ImageBrush из выбранного изображения
+                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/flowerbackground.jpg")));
                     canvas.Background = imageBrush;
                 }
                 else if (back == "С фоторамками")
                 {
-                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/borderback.jpg"))); // Создаем ImageBrush из выбранного изображения
+                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/borderback.jpg"))); 
                     canvas.Background = imageBrush;
                 }
                 else if (back == "Книга")
                 {
-                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/bookback.jpg"))); // Создаем ImageBrush из выбранного изображения
+                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/bookback.jpg")));
                     canvas.Background = imageBrush;
                 }
                 else canvas.Background = Brushes.BurlyWood;
@@ -96,6 +98,8 @@ namespace wpfPageViewer
                 CanvasImages[0] = new();
                 CanvasImages[1] = new();
                 CanvasImages[2] = new();
+                //CanvasImages[3] = new();
+                //CanvasImages[4] = new();
                 int j = 0;
                 foreach (Image image in CanvasImages)
                 {
@@ -104,7 +108,7 @@ namespace wpfPageViewer
                     image.Height = (canvas.Height / 3);
                     //image.MouseLeftButtonDown += Image_MouseLeftButtonDown;
                     Canvas.SetLeft(image, rnd.Next(15, page.Width / 2));
-                    Canvas.SetTop(image, rnd.Next(15, page.Width / 2));
+                    Canvas.SetTop(image, rnd.Next(15, page.Height / 2));
                     canvas.Children.Add(image);
                     j++;
                 }
