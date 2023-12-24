@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace wpfPageViewer
 {
     internal class Page
     {
-        public Page(string? name, int width, int height, string? color)
+        public Page(string? name, int width, int height, string? background)
         {
             Name = name;
             Width = width;
             Height = height;
-            Color = color;
+            Background = background;
         }
 
         public string? Name { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public string? Color { get; set; }
+        public string? Background { get; set; }
+
     }
 }

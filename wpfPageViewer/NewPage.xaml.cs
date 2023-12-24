@@ -32,6 +32,7 @@ namespace wpfPageViewer
 
         Img img0 = new Img();
 
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             SelectedPics[0] = new Img();
@@ -59,17 +60,37 @@ namespace wpfPageViewer
         }
 
         Random rnd = new Random();
+        Canvas canvas = new Canvas();
         private void CreateCanvas(object sender, RoutedEventArgs e)
         {
             string name = PageName.Text;
             int width = int.Parse(PageWidth.Text);
             int height = int.Parse(PageHeight.Text);
-            string color = PageColor.Text;
-            Page page = new Page(name, width, height, color);
-            Canvas canvas = new Canvas();
+            string back = SelectBack.Text;
+            Page page = new Page(name, width, height, back);
+            canvas.Name = page.Name;
             canvas.Width = page.Width;
             canvas.Height = page.Height;
-            canvas.Background = Brushes.Aquamarine;
+
+            if (back == "С цветами")
+            {
+                ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/flowerbackground.jpg"))); // Создаем ImageBrush из выбранного изображения
+                canvas.Background = imageBrush; // Устанавливаем ImageBrush в качестве фона Canvas
+            }
+            else if (back == "С фоторамками")
+            {
+                ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/borderback.jpg"))); // Создаем ImageBrush из выбранного изображения
+                canvas.Background = imageBrush; // Устанавливаем ImageBrush в качестве фона Canvas
+            }
+            else if (back == "Книга")
+            {
+                ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/bookback.jpg"))); // Создаем ImageBrush из выбранного изображения
+                canvas.Background = imageBrush; // Устанавливаем ImageBrush в качестве фона Canvas
+            }
+            else canvas.Background = Brushes.BurlyWood;
+
+            //canvas.MouseLeftButtonUp += Image_MouseLeftButtonUp;
+            //canvas.MouseMove += Image_MouseMove;
 
             Image[] CanvasImages = new Image[3];
             CanvasImages[0] = new();
@@ -81,8 +102,9 @@ namespace wpfPageViewer
                 image.Source = new BitmapImage(SelectedPics[j].Source);
                 image.Width = (canvas.Width / 3);
                 image.Height = (canvas.Height / 3);
-                Canvas.SetLeft(image, rnd.Next(25, 200));
-                Canvas.SetTop(image, rnd.Next(25,200));
+                //image.MouseLeftButtonDown += Image_MouseLeftButtonDown;
+                Canvas.SetLeft(image, rnd.Next(15, page.Width/2));
+                Canvas.SetTop(image, rnd.Next(15,page.Width/2));
                 canvas.Children.Add(image);
                 j++;
             }
@@ -90,6 +112,33 @@ namespace wpfPageViewer
 
             PlaceForCanvas.Children.Add(canvas);
         }
+
+        //private void Image_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    Image image = (Image)sender;
+        //    if (image.IsMouseCaptured)
+        //    {
+        //        Point endPoint = e.GetPosition(canvas);
+        //        double left = endPoint.X - startPoint.X;
+        //        double top = endPoint.Y - startPoint.Y;
+        //        Canvas.SetLeft(image, left);
+        //        Canvas.SetTop(image, top);
+        //    }
+        //}
+
+        //private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    Image image = (Image)sender;
+        //    image.ReleaseMouseCapture();
+        //}
+
+        //private Point startPoint;
+        //private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    Image image = (Image)sender;
+        //    startPoint = e.GetPosition(image);
+        //    image.CaptureMouse();
+        //}
 
         private void SaveAsPNG(object sender, RoutedEventArgs e)
         {
@@ -110,7 +159,8 @@ namespace wpfPageViewer
                     // Создаем диалоговое окно для выбора пути сохранения файла
                     Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
                     saveFileDialog.Filter = "PNG Files (*.png)|*.png";
-                    saveFileDialog.DefaultExt = ".png";
+                    saveFileDialog.DefaultExt = ".png" ;
+                    saveFileDialog.FileName = canvas.Name;
                     if (saveFileDialog.ShowDialog() == true)
                     {
                         string filePath = saveFileDialog.FileName;
