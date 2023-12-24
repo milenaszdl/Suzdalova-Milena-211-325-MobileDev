@@ -91,8 +91,6 @@ namespace wpfPageViewer
                 }
                 else canvas.Background = Brushes.BurlyWood;
 
-                //canvas.MouseLeftButtonUp += Image_MouseLeftButtonUp;
-                //canvas.MouseMove += Image_MouseMove;
 
                 Image[] CanvasImages = new Image[5];
                 CanvasImages[0] = new();
@@ -106,7 +104,9 @@ namespace wpfPageViewer
                     image.Source = new BitmapImage(SelectedPics[j].Source);
                     image.Width = (canvas.Width / 3);
                     image.Height = (canvas.Height / 3);
-                    //image.MouseLeftButtonDown += Image_MouseLeftButtonDown;
+                    image.MouseLeftButtonDown += Image_MouseLeftButtonDown;
+                    image.MouseLeftButtonUp += Image_MouseLeftButtonUp;
+                    image.MouseMove += Image_MouseMove;
                     Canvas.SetLeft(image, rnd.Next(15, page.Width / 2));
                     Canvas.SetTop(image, rnd.Next(15, page.Height / 2));
                     canvas.Children.Add(image);
@@ -121,31 +121,31 @@ namespace wpfPageViewer
 
         private Point startPoint;
 
-        //private void Image_MouseMove(object sender, MouseEventArgs e)
-        //{
-        //    Image image = (Image)sender;
-        //    if (image.IsMouseCaptured)
-        //    {
-        //        Point endPoint = e.GetPosition(canvas);
-        //        double left = endPoint.X - startPoint.X;
-        //        double top = endPoint.Y - startPoint.Y;
-        //        Canvas.SetLeft(image, left);
-        //        Canvas.SetTop(image, top);
-        //    }
-        //}
+        private void Image_MouseMove(object sender, MouseEventArgs e)
+        {
+            Image image = (Image)sender;
+            if (image.IsMouseCaptured)
+            {
+                Point endPoint = e.GetPosition(canvas);
+                double left = endPoint.X - startPoint.X;
+                double top = endPoint.Y - startPoint.Y;
+                Canvas.SetLeft(image, left);
+                Canvas.SetTop(image, top);
+            }
+        }
 
-        //private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    Image image = (Image)sender;
-        //    image.ReleaseMouseCapture();
-        //}
+        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Image image = (Image)sender;
+            image.ReleaseMouseCapture();
+        }
 
-        //private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    Image image = (Image)sender;
-        //    startPoint = e.GetPosition(image);
-        //    image.CaptureMouse();
-        //}
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Image image = (Image)sender;
+            startPoint = e.GetPosition(image);
+            image.CaptureMouse();
+        }
 
         private void SaveAsPNG(object sender, RoutedEventArgs e)
         {
