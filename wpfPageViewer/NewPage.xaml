@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpfPageViewer" xmlns:col="clr-namespace:System.Collections;assembly=System.Runtime.Extensions"
         mc:Ignorable="d"
-        Title="Новая страница" Height="450" Width="650">
+        Title="Новая страница" Height="500" Width="650">
     <StackPanel Orientation="Horizontal">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <Label Content="Параметры страницы:" FontWeight="Bold"/>

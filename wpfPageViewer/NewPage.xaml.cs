@@ -107,6 +107,7 @@ namespace wpfPageViewer
                     image.MouseLeftButtonDown += Image_MouseLeftButtonDown;
                     image.MouseLeftButtonUp += Image_MouseLeftButtonUp;
                     image.MouseMove += Image_MouseMove;
+                    image.MouseWheel += Image_MouseWheel;
                     Canvas.SetLeft(image, rnd.Next(15, page.Width / 2));
                     Canvas.SetTop(image, rnd.Next(15, page.Height / 2));
                     canvas.Children.Add(image);
@@ -117,6 +118,21 @@ namespace wpfPageViewer
                 PlaceForCanvas.Children.Add(canvas);
             }
             else MessageBox.Show("Не все параметры заполнены или введены неправильно");
+        }
+
+        private void Image_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            Image image = (Image)sender;
+            if (e.Delta > 0)
+            {
+                image.Width *= 1.1;
+                image.Height *= 1.1;
+            }
+            else
+            {
+                image.Width /= 1.1;
+                image.Height /= 1.1;
+            }
         }
 
         private Point startPoint;
