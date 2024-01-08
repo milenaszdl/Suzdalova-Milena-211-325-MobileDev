@@ -1,0 +1,53 @@
+﻿<Window x:Class="wpfSolarSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfSolarSystem"
+        mc:Ignorable="d"
+        Title="Солнечная система" Height="600" Width="1000">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\milic\source\repos\Suzdalova-Milena-211-325-MobileDev\wpfSolarSystem\back\cosmos.jpg"/>
+        </Grid.Background>
+        <StackPanel Width="220" HorizontalAlignment="Left" Background="White">
+            <TextBlock Text="Размер Солнца = 70" Margin="0 30 0 0"/>
+            <TextBlock/>
+            <TextBlock Text="Размер Земли = 20"/>
+            <TextBlock Text="Расстояние от Солнца до Земли = 170"/>
+            <TextBlock/>
+            <TextBlock Text="Размер Луны = 10"/>
+            <TextBlock Text="Расстояние от Земли до Луны = 40"/>
+            <Label Content="Создать планету" FontWeight="Bold" Margin="0 20 0 0"/>
+            <Label Content="Радиус:"/>
+            <TextBox x:Name="PlanetRad"></TextBox>
+            <Label Content="Расстояние от Солнца:"/>
+            <TextBox x:Name="PlanetDistance"></TextBox>
+            <Label Content="Цвет:"/>
+            <ComboBox x:Name="SelectColor">
+                <TextBlock>Зеленый</TextBlock>
+                <TextBlock>Красный</TextBlock>
+                <TextBlock>Оранжевый</TextBlock>
+                <TextBlock>Голубой</TextBlock>
+            </ComboBox>
+            <Button Content="Создать" Margin="10" Width="150" Click="CreatePlanet"/>
+        </StackPanel>
+        <Viewport3D Width="780" 
+                    HorizontalAlignment="Right" 
+                    x:Name="Viewport3D">
+            <Viewport3D.Camera>
+                <PerspectiveCamera Position="0 540 520" LookDirection="0 -1 -1" />
+            </Viewport3D.Camera>
+            <ModelVisual3D>
+                <ModelVisual3D.Content>
+                    <DirectionalLight Direction="1, -1, -1" Color="White" />
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+            <ModelVisual3D>
+                <ModelVisual3D.Content>
+                    <AmbientLight Color="#1f1f1f"   />
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+        </Viewport3D>
+    </Grid>
+</Window>

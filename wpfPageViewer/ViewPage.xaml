@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpfPageViewer"
         mc:Ignorable="d"
-        Title="ViewPage" Height="450" Width="800">
+        Title="Редактировать страницу" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel x:Name="ListPages">
+            <ListBox Margin="10" x:Name="SelectPage">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel x:Name="PlaceForCanvas"></StackPanel>
     </Grid>
 </Window>

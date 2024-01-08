@@ -63,6 +63,8 @@ namespace wpfPageViewer
 
         Random rnd = new Random();
         Canvas canvas = new Canvas();
+
+        List<Page> CreatedPages;
         private void CreateCanvas(object sender, RoutedEventArgs e)
         {
             if (PageName.Text != null && int.TryParse(PageWidth.Text, out int width) && int.TryParse(PageHeight.Text, out int height))
@@ -108,12 +110,16 @@ namespace wpfPageViewer
                     image.MouseLeftButtonUp += Image_MouseLeftButtonUp;
                     image.MouseMove += Image_MouseMove;
                     image.MouseWheel += Image_MouseWheel;
-                    Canvas.SetLeft(image, rnd.Next(15, page.Width / 2));
-                    Canvas.SetTop(image, rnd.Next(15, page.Height / 2));
+                    double x = rnd.Next(15, page.Width / 2);
+                    double y = rnd.Next(15, page.Height / 2);
+                    Canvas.SetLeft(image, x);
+                    Canvas.SetTop(image, y);
                     canvas.Children.Add(image);
+                    //page.AddImage(SelectedPics[j].Source, x, y, image.Width, image.Height);
                     j++;
                 }
 
+                //CreatedPages.Add(page);
 
                 PlaceForCanvas.Children.Add(canvas);
             }
@@ -162,6 +168,7 @@ namespace wpfPageViewer
             startPoint = e.GetPosition(image);
             image.CaptureMouse();
         }
+
 
         private void SaveAsPNG(object sender, RoutedEventArgs e)
         {

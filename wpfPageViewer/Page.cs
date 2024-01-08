@@ -23,5 +23,11 @@ namespace wpfPageViewer
         public int Height { get; set; }
         public string? Background { get; set; }
 
+        public List<Img> images;
+
+        public void AddImage(Uri imagePath, double x, double y, double imageWidth, double imageHeight)
+        {
+            images.Add(new Img(imagePath, x, y, imageWidth, imageHeight));
+        }
     }
 }
