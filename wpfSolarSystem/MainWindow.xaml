@@ -32,7 +32,7 @@
             </ComboBox>
             <Button Content="Создать" Margin="10" Width="150" Click="CreatePlanet"/>
         </StackPanel>
-        <Viewport3D Width="780" 
+        <Viewport3D Width="765" 
                     HorizontalAlignment="Right" 
                     x:Name="Viewport3D">
             <Viewport3D.Camera>
