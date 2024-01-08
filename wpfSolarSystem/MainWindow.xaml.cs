@@ -44,29 +44,23 @@ namespace wpfSolarSystem
 
         private void SetupScene()
         {
-            // Create a low-res Sphere (to see the rotations better. It's the vertexbuffer on the videocard)
+            //создаем сферу для геометрии моделей
             var sphere = SpherePrimitives.Sphere(15, 1);
 
+            // СОЛНЦЕ
 
-            // # SUN
-
-            // Define the material for the sun (yellow)
+            //материал
             var sunMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Yellow));
 
-            // define an axis angle rotation for the sun (rotate on y-axis)
+            // вращение вокруг своей оси Y
             var sunRotation = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 0);
 
-            // Create a transformation group (to be able to have multiple transformations)
+            //задаем размеры
             var sunScaleRotate = new Transform3DGroup();
-            // add the scale transform for the sun 
             sunScaleRotate.Children.Add(new ScaleTransform3D(new Vector3D(_sunSize, _sunSize, _sunSize)));
-            // Add the rotation to the sun.
             sunScaleRotate.Children.Add(new RotateTransform3D(sunRotation));
 
-            // define the sun model (which is a geometry and a material)
-            // also assign the sun scale and rotation transform group.
-            // This local transform for the sun makes it possible that the sun can rotate and
-            // scale independently from the earth/moon,
+            //создаем модель
             var sunModel = new GeometryModel3D
             {
                 Material = sunMaterial,
@@ -74,31 +68,20 @@ namespace wpfSolarSystem
                 Transform = sunScaleRotate
             };
 
-            // create a sun group, add the earth so it will be relative to the sun.
-            //var sunGroup = new Model3DGroup();
-
-            // add the sun itself.
+            // добавляем в группу
             sunGroup.Children.Add(sunModel);
 
 
-            // ## Earth
+            // ЗЕМЛЯ
 
-            // create a material for the earth
             var earthMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Blue));
 
-            // define a rotation for earth.
             var earthRotation = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 0);
 
-            // we'd like to rotate and scale the earth (without effecting the moon)
-            // so we make a separate transform group for this.
             var earthScaleRotate = new Transform3DGroup();
-            // add the scale (same geometry only scaled other than the sun)
             earthScaleRotate.Children.Add(new ScaleTransform3D(new Vector3D(_earthSize, _earthSize, _earthSize)));
-            // Add the rotation to the group.
             earthScaleRotate.Children.Add(new RotateTransform3D(earthRotation));
 
-            // create the earth model (bind geometry + material)
-            // use the earth scale/rotate only on the earth model.
             var earthModel = new GeometryModel3D
             {
                 Material = earthMaterial,
@@ -106,45 +89,32 @@ namespace wpfSolarSystem
                 Transform = earthScaleRotate
             };
 
-            // now we create a new group where the earth and mood are added.
-            //var earthGroup = new Model3DGroup();
-            // add the earth model
             earthGroup.Children.Add(earthModel);
 
-            // create a rotation for the earth arround the sun.
+            // вращение вокруг солнца
             var earthArroundSunRotation = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 0);
 
-            // the earth is not on the same position as the sun, but translated.
+            //задаем расстояние до солнца (центра координат) и добавляем ранее созданное вращение
             var earthTransformGroup = new Transform3DGroup();
-            // here comes the trick. If you translate first and then rotate, it will be a big
-            // elipse. If you rotate first and then translate. the earth is translated and rotate on it self.
-            // so first translate, then rotate.
             earthTransformGroup.Children.Add(new TranslateTransform3D(_earthDistance, 0, 0));
             earthTransformGroup.Children.Add(new RotateTransform3D(earthArroundSunRotation));
 
-            // Assign the transform group to the earthgroup.
             earthGroup.Transform = earthTransformGroup;
 
-            // here comes the hiarchy thing! add the earth group to the sungroup.
             sunGroup.Children.Add(earthGroup);
 
 
-            // ### moon
+            // ЛУНА
 
-            // create the moon material.
             var moonMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Gray));
 
-            // define the moon rotation
             var moonRotation = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 0);
 
-            // create a moon rotation groep (for the moon itself)
             var moonScaleRotate = new Transform3DGroup();
-            // scale it to the size of the moon. (still the same geometry)
             moonScaleRotate.Children.Add(new ScaleTransform3D(new Vector3D(_moonSize, _moonSize, _moonSize)));
-            // add the local rotation for the moon.
             moonScaleRotate.Children.Add(new RotateTransform3D(moonRotation));
 
-            // create the moon model.
+
             var moonModel = new GeometryModel3D
             {
                 Material = moonMaterial,
@@ -152,36 +122,26 @@ namespace wpfSolarSystem
                 Transform = moonScaleRotate
             };
 
-            // create a group for the rotation of the moon arround earth.
-            //var moonGroup = new Model3DGroup();
-            // add the model.
             moonGroup.Children.Add(moonModel);
 
-            // define the rotation of the moon arround earth
             var moonArroundEarthRotation = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 0);
 
-            // create transform group for the moon
             var moonTransformGroup = new Transform3DGroup();
-            // first translate, then rotate!
             moonTransformGroup.Children.Add(new TranslateTransform3D(_moonDistance, 0, 0));
             moonTransformGroup.Children.Add(new RotateTransform3D(moonArroundEarthRotation));
 
-            // add the transform group to the moonGroup
             moonGroup.Transform = moonTransformGroup;
 
-            // hiarchy thing! add the moon to the earthgroup.
             earthGroup.Children.Add(moonGroup);
 
 
-            // put the model into the Viewport3D
+            // добавляем группу с солнцем землей и луной на вьюпорт
             Viewport3D.Children.Add(new ModelVisual3D { Content = sunGroup });
 
 
-            // use a stopwatch (wpf don't render 100% on 60 fps)
-            // a stopwatch gives better results.
+            // для рендера
             var sw = Stopwatch.StartNew();
 
-            // trigger each frame rendering. 
             CompositionTarget.Rendering += (s, ee) =>
             {
                 // get a snapshot of the current time.
