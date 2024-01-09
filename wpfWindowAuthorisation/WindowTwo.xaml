@@ -1,0 +1,90 @@
+﻿<Window x:Class="wpfWindowAuthorisation.WindowTwo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfWindowAuthorisation"
+        mc:Ignorable="d"
+        Title="Валентинка" Height="580" Width="410"    
+        Background="#f0a5c8">
+    <Grid>
+        <Image Source="C:\Users\milic\source\repos\Suzdalova-Milena-211-325-MobileDev\wpfWindowAuthorisation\icon\hearts.jpg" Opacity="0.15" Stretch="Fill"/>
+        <TextBlock FontSize="30"
+                   FontFamily="Times New Roman"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   Margin="0 25 0 0"
+                   Foreground="#690931">
+            Отправь<LineBreak/>анонимную<LineBreak/>валентинку
+        </TextBlock>
+        <TextBlock Text="Если не имеешь смелости подойти сам :3" 
+                   FontFamily="Times New Roman"
+                   FontSize="22"
+                   Margin="0 140 0 0"
+                   HorizontalAlignment="Center"
+                   Foreground="#4d0422"/>
+        <UniformGrid Columns="1" Margin="0 190 0 0">
+            <TextBox Margin="40 0 40 0" 
+                     VerticalAlignment="Top" 
+                     FontFamily="Times New Roman"
+                     Height="35" 
+                     Text="Имя" 
+                     Foreground="#ba366c"
+                     FontSize="26">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="12"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBox Margin="40 -38 40 0" 
+                     VerticalAlignment="Top" 
+                     FontFamily="Times New Roman"
+                     Height="35" 
+                     Text="@telegram" 
+                     Foreground="#ba366c"
+                     FontSize="26">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="12"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <TextBox Margin="40 -72 40 0" 
+                     VerticalAlignment="Top" 
+                     FontFamily="Times New Roman"
+                     Height="130" 
+                     Text="Текст сообщения" 
+                     Foreground="#ba366c"
+                     FontSize="26">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="12"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <Button Content="Отправить" 
+                    Margin="30 -39 30 0" 
+                    Foreground="WhiteSmoke"
+                    FontFamily="Times New Roman"
+                    FontSize="25" FontWeight="SemiBold"
+                    BorderThickness="0" Background="#690931" 
+                    Height="60"
+                    Width="200">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="25"/>
+                    </Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#690931" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </UniformGrid>
+    </Grid>
+</Window>

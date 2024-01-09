@@ -10,25 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace wpfWindowAuthorisation
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для WindowTwo.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WindowTwo : Window
     {
-        public MainWindow()
+        public WindowTwo()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            WindowTwo Window2 = new WindowTwo();
-            Window2.Show();
         }
     }
 }
