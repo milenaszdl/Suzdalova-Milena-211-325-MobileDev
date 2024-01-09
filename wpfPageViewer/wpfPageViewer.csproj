@@ -11,4 +11,16 @@
     <Folder Include="savedpages\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="backgrounds\bookback.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="backgrounds\borderback.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="backgrounds\flowerbackground.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

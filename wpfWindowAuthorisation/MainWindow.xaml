@@ -39,14 +39,17 @@
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <TextBlock Text="Password: " FontSize="20" Margin="10 -15 9 40" FontWeight="Bold" Foreground="Teal"/>
-            <TextBox FontSize="18" Margin="8 -31 8 56" VerticalAlignment="Center" Height="30">
-                <TextBox.Resources>
+            <TextBlock Text="Password: " FontSize="20" Margin="10 -15 9 40" FontWeight="Bold" Foreground="Teal" />
+            <PasswordBox FontSize="18" 
+                     Margin="8 -31 8 56" 
+                     VerticalAlignment="Center" 
+                     Height="30">
+                <PasswordBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="8"/>
                     </Style>
-                </TextBox.Resources>
-            </TextBox>
+                </PasswordBox.Resources>
+            </PasswordBox>
             <Button Content="Sign In" Margin="30 9 30 1" Foreground="WhiteSmoke"
                     FontSize="22" FontWeight="SemiBold"
                     BorderThickness="0" Background="Teal" 

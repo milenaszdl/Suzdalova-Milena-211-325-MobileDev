@@ -57,7 +57,8 @@
                      Height="130" 
                      Text="Текст сообщения" 
                      Foreground="#ba366c"
-                     FontSize="26">
+                     FontSize="26"
+                     TextWrapping="Wrap" AcceptsReturn="True">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="12"/>

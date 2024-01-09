@@ -78,17 +78,23 @@ namespace wpfPageViewer
 
                 if (back == "С цветами")
                 {
-                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/flowerbackground.jpg")));
+                    string path = @"backgrounds\flowerbackground.jpg";
+                    Uri currentUri = new Uri(Directory.GetCurrentDirectory() + "\\") ;
+                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri(currentUri, path)));
                     canvas.Background = imageBrush;
                 }
                 else if (back == "С фоторамками")
                 {
-                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/borderback.jpg"))); 
+                    string path = @"backgrounds\borderback.jpg";
+                    Uri currentUri = new Uri(Directory.GetCurrentDirectory() + "\\");
+                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri(currentUri, path))); 
                     canvas.Background = imageBrush;
                 }
                 else if (back == "Книга")
                 {
-                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri("C:/Users/milic/source/repos/Suzdalova-Milena-211-325-MobileDev/wpfPageViewer/backgrounds/bookback.jpg")));    
+                    string path = @"backgrounds\bookback.jpg";
+                    Uri currentUri = new Uri(Directory.GetCurrentDirectory() + "\\");
+                    ImageBrush imageBrush = new ImageBrush(new BitmapImage(new Uri(currentUri, path)));
                     canvas.Background = imageBrush;
                 }
                 else canvas.Background = Brushes.BurlyWood;
