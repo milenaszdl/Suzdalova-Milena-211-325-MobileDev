@@ -2,30 +2,96 @@
 {
     public partial class MainPage : ContentPage
     {
-        Calc calc = new();
+        int currentState = 1;
+        string operatorMath;
+        double firstNum, secondNum;
+
+        //Calc calc = new();
         public MainPage()
         {
             InitializeComponent();
+            OnClear(this, null);
 
-            calc.Changed += (s, e) => laDisplay.Text = calc.CurText;
+            busqr.Clicked += (s, e) =>
+            {
+                if (firstNum == 0)
+                    return;
+                firstNum=Calc.PressOperator(firstNum, firstNum, "x^2");
+                this.laDisplay.Text = firstNum.ToString();
+            };
 
-            buNumCE.Clicked += (s, e) => calc.Clear();
-            buNum0.Clicked += (s, e) => calc.PressNum(0);
-            buNum1.Clicked += (s, e) => calc.PressNum(1);
-            buNum2.Clicked += (s, e) => calc.PressNum(2);
-            buNum3.Clicked += (s, e) => calc.PressNum(3);
-            buNum4.Clicked += (s, e) => calc.PressNum(4);
-            buNum5.Clicked += (s, e) => calc.PressNum(5);
-            buNum6.Clicked += (s, e) => calc.PressNum(6);
-            buNum7.Clicked += (s, e) => calc.PressNum(7);
-            buNum8.Clicked += (s, e) => calc.PressNum(8);
-            buNum9.Clicked += (s, e) => calc.PressNum(9);
+            busqrt.Clicked += (s, e) =>
+            {
+                if (firstNum == 0)
+                    return;
+                firstNum = Calc.PressOperator(firstNum, firstNum, "sqrt");
+                this.laDisplay.Text = firstNum.ToString();
+            };
 
-            buDiv.Clicked += (s, e) => calc.PressOperator("div");
-            buMul.Clicked += (s, e) => calc.PressOperator("mul");
-            buSub.Clicked += (s, e) => calc.PressOperator("sub");
-            buSum.Clicked += (s, e) => calc.PressOperator("sum");
+            buOneDel.Clicked += (s, e) =>
+            {
+                if (firstNum == 0)
+                    return;
+                firstNum = Calc.PressOperator(firstNum, firstNum, "1/x");
+                this.laDisplay.Text = firstNum.ToString();
+            };
         }
 
+        void OnClear(object sender, EventArgs e)
+        {
+            firstNum = 0;
+            secondNum = 0;
+            currentState = 1;
+            this.laDisplay.Text = "0";
+        }
+
+        void OnNumberSelection(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            string btnPressed = button.Text;
+
+            if (this.laDisplay.Text == "0" || currentState < 0)
+            {
+                this.laDisplay.Text = string.Empty;
+                if (currentState < 0)
+                    currentState *= -1;
+            }
+
+            this.laDisplay.Text += btnPressed;
+
+            double number;
+            if (double.TryParse(this.laDisplay.Text, out number))
+            {
+                this.laDisplay.Text = number.ToString("N0");
+                if (currentState == 1)
+                {
+                    firstNum = number;
+                }
+                else
+                {
+                    secondNum = number;
+                }
+            }
+        }
+
+        void onOperatorSelection(object sender, EventArgs e)
+        {
+            currentState = -2;
+            Button button = (Button)sender;
+            string btnPressed = button.Text;
+            operatorMath = btnPressed;
+        }
+
+        void onCalculate(object sender, EventArgs e)
+        {
+            if (currentState == 2)
+            {
+                var result = Calc.PressOperator(firstNum, secondNum, operatorMath);
+
+                this.laDisplay.Text = result.ToString();
+                firstNum = result;
+                currentState = -1;
+            }
+        }
     }
 }

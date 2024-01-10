@@ -15,7 +15,7 @@
 
         <StackLayout Grid.Row="0">
             <Label x:Name="laDisplay"
-                   Text="1234567"
+                   Text="0"
                    FontSize="40"
                    LineBreakMode="NoWrap"
                    HorizontalTextAlignment="End"/>
@@ -29,34 +29,34 @@
               ColumnSpacing="5">
 
             <Button Text="%" Grid.Row="0" Grid.Column="0"/>
-            <Button Text="CE" Grid.Row="0" Grid.Column="1" x:Name="buNumCE"/>
-            <Button Text="C" Grid.Row="0" Grid.Column="2"/>
+            <Button Text="CE" Grid.Row="0" Grid.Column="1" x:Name="buNumCE" Clicked="OnClear"/>
+            <Button Text="C" Grid.Row="0" Grid.Column="2" Clicked="OnClear"/>
             <Button Text="←" Grid.Row="0" Grid.Column="3"/>
 
-            <Button Text="1/x" Grid.Row="1" Grid.Column="0"/>
-            <Button Text="x^2" Grid.Row="1" Grid.Column="1"/>
-            <Button Text="sqrt" Grid.Row="1" Grid.Column="2"/>
-            <Button Text="/" Grid.Row="1" Grid.Column="3" x:Name="buDiv"/>
+            <Button Text="1/x" Grid.Row="1" Grid.Column="0" x:Name="buOneDel"/>
+            <Button Text="x^2" Grid.Row="1" Grid.Column="1" x:Name="busqr"/>
+            <Button Text="sqrt" Grid.Row="1" Grid.Column="2" x:Name="busqrt"/>
+            <Button Text="/" Grid.Row="1" Grid.Column="3" x:Name="buDiv" Clicked="onOperatorSelection"/>
 
-            <Button Text="7" Grid.Row="2" Grid.Column="0" x:Name="buNum7"/>
-            <Button Text="8" Grid.Row="2" Grid.Column="1" x:Name="buNum8"/>
-            <Button Text="9" Grid.Row="2" Grid.Column="2" x:Name="buNum9"/>
-            <Button Text="*" Grid.Row="2" Grid.Column="3" x:Name="buMul"/>
+            <Button Text="7" Grid.Row="2" Grid.Column="0" x:Name="buNum7" Clicked="OnNumberSelection"/>
+            <Button Text="8" Grid.Row="2" Grid.Column="1" x:Name="buNum8" Clicked="OnNumberSelection"/>
+            <Button Text="9" Grid.Row="2" Grid.Column="2" x:Name="buNum9" Clicked="OnNumberSelection"/>
+            <Button Text="*" Grid.Row="2" Grid.Column="3" x:Name="buMul" Clicked="onOperatorSelection"/>
 
-            <Button Text="4" Grid.Row="3" Grid.Column="0" x:Name="buNum4"/>
-            <Button Text="5" Grid.Row="3" Grid.Column="1" x:Name="buNum5"/>
-            <Button Text="6" Grid.Row="3" Grid.Column="2" x:Name="buNum6"/>
-            <Button Text="-" Grid.Row="3" Grid.Column="3" x:Name="buSub"/>
+            <Button Text="4" Grid.Row="3" Grid.Column="0" x:Name="buNum4" Clicked="OnNumberSelection"/>
+            <Button Text="5" Grid.Row="3" Grid.Column="1" x:Name="buNum5" Clicked="OnNumberSelection"/>
+            <Button Text="6" Grid.Row="3" Grid.Column="2" x:Name="buNum6" Clicked="OnNumberSelection"/>
+            <Button Text="-" Grid.Row="3" Grid.Column="3" x:Name="buSub" Clicked="onOperatorSelection"/>
 
-            <Button Text="1" Grid.Row="4" Grid.Column="0" x:Name="buNum1"/>
-            <Button Text="2" Grid.Row="4" Grid.Column="1" x:Name="buNum2"/>
-            <Button Text="3" Grid.Row="4" Grid.Column="2" x:Name="buNum3"/>
-            <Button Text="+" Grid.Row="4" Grid.Column="3" x:Name="buSum"/>
+            <Button Text="1" Grid.Row="4" Grid.Column="0" x:Name="buNum1" Clicked="OnNumberSelection"/>
+            <Button Text="2" Grid.Row="4" Grid.Column="1" x:Name="buNum2" Clicked="OnNumberSelection"/>
+            <Button Text="3" Grid.Row="4" Grid.Column="2" x:Name="buNum3" Clicked="OnNumberSelection"/>
+            <Button Text="+" Grid.Row="4" Grid.Column="3" x:Name="buSum" Clicked="onOperatorSelection"/>
 
             <Button Text="+/-" Grid.Row="5" Grid.Column="0"/>
-            <Button Text="0" Grid.Row="5" Grid.Column="1" x:Name="buNum0"/>
+            <Button Text="0" Grid.Row="5" Grid.Column="1" x:Name="buNum0" Clicked="OnNumberSelection"/>
             <Button Text="," Grid.Row="5" Grid.Column="2"/>
-            <Button Text="=" Grid.Row="5" Grid.Column="3"/>
+            <Button Text="=" Grid.Row="5" Grid.Column="3" Clicked="onCalculate"/>
         </Grid>
     </Grid>
 
