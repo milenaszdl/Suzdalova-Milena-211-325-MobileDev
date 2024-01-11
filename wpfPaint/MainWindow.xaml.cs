@@ -44,6 +44,7 @@ namespace wpfPaint
             var drawingAttributes = PaintCanvas.DefaultDrawingAttributes;
             drawingAttributes.Width = BrushSlider.Value;
             drawingAttributes.Height = BrushSlider.Value;
+            currentBrushThickness = BrushSlider.Value;
             PaintCanvas.EraserShape = new EllipseStylusShape(BrushSlider.Value, BrushSlider.Value);
             inkDA.Width = BrushSlider.Value;
             inkDA.Height = BrushSlider.Value;
@@ -53,8 +54,8 @@ namespace wpfPaint
         {
             Color selectedColor = (Color)(BrushColorCombo.SelectedItem as PropertyInfo).GetValue(null, null);
             PaintCanvas.DefaultDrawingAttributes.Color = selectedColor;
-            inkDA.Color = selectedColor;
-            Color selectedColor1 = (Color)ColorConverter.ConvertFromString(BrushColorCombo.SelectedValue.ToString());
+            //inkDA.Color = selectedColor;
+            //Color selectedColor1 = (Color)ColorConverter.ConvertFromString(BrushColorCombo.SelectedValue.ToString());
             //((SolidColorBrush)currentBrush).Color = selectedColor1;
 
         }
@@ -98,10 +99,10 @@ namespace wpfPaint
         //Color selected = inkDA.Color;
         Brush currentBrush = Brushes.Black;
         MouseButtonState previousMouseEvent = new MouseButtonState();
-        int currentBrushThickness = 3;
+        double currentBrushThickness = 3;
 
         enum ToolType { Line, Rect, Ellipse }
-        ToolType currentTool = ToolType.Line;
+        ToolType currentTool;
 
 
         private void DrawRectangle_Click(object sender, RoutedEventArgs e)
