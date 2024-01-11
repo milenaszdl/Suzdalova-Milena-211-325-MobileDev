@@ -1,0 +1,55 @@
+﻿<Window x:Class="wpfPaint.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfPaint"
+        mc:Ignorable="d"
+        Title="Paint" Height="500" Width="600">
+    <DockPanel>
+        <StackPanel Width="150" DockPanel.Dock="Left" Background="Gray">
+            <StackPanel Margin="5" Background="White">
+                <TextBlock HorizontalAlignment="Center">Настройки кисти</TextBlock>
+                <StackPanel Margin="2">
+                    <TextBlock Text="Размер кисти:"/>
+                    <Slider 
+                        Name="BrushSlider"
+                        Minimum="1" 
+                        Maximum="100" 
+                        TickPlacement="BottomRight" 
+                        TickFrequency="5"
+                        ValueChanged="BrushSizeSlider_ValueChanged"/>
+                    <TextBlock Text="Цвет кисти" />
+                    <ComboBox 
+                        Name="BrushColorCombo" 
+                        SelectionChanged="BrushColorCombo_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="{Binding Name}" 
+                                               Width="16" Height="16" 
+                                               Margin="0,2,5,2" />
+                                    <TextBlock Text="{Binding Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Text="Тип кисти"/>
+                    <ComboBox 
+                        Name="BrushStateCombo" 
+                        SelectedIndex="0" 
+                        SelectionChanged="BrushStateCombo_SelectionChanged">
+                        <ComboBoxItem>
+                            <TextBlock Text="Маркер"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Ластик"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <Button Content="Сохранить" Click="SaveAsPNG" Width="150"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <InkCanvas Name="PaintCanvas"/>
+    </DockPanel>
+</Window>
