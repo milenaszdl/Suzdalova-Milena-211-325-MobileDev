@@ -4,7 +4,16 @@
     {
         static void Main(string[] args)
         {
-            PrintMinefield(GenerateMinefield(9, 9, 10));
+            Console.WriteLine("Высота поля:");
+            int height = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Ширина поля:");
+            int width = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Количество мин:");
+            int bombs = int.Parse(Console.ReadLine());
+
+            PrintMinefield(GenerateMinefield(height, width, bombs));
         }
 
         static char[,] GenerateMinefield(int height, int width, int numMines)
