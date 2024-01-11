@@ -5,10 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Ink;
@@ -33,7 +35,7 @@ namespace wpfPaint
         }
 
         //private var drawingAttributes = PaintCanvas.DefaultDrawingAttributes;
-        private DrawingAttributes inkDA = new DrawingAttributes {};
+        private DrawingAttributes inkDA = new DrawingAttributes { };
 
         private void BrushSizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -52,6 +54,9 @@ namespace wpfPaint
             Color selectedColor = (Color)(BrushColorCombo.SelectedItem as PropertyInfo).GetValue(null, null);
             PaintCanvas.DefaultDrawingAttributes.Color = selectedColor;
             inkDA.Color = selectedColor;
+            Color selectedColor1 = (Color)ColorConverter.ConvertFromString(BrushColorCombo.SelectedValue.ToString());
+            //((SolidColorBrush)currentBrush).Color = selectedColor1;
+
         }
 
         private void BrushStateCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -87,56 +92,172 @@ namespace wpfPaint
             }
         }
 
-        private Point currentPoint;
+        private bool isDrawing = false;
         private Point startPoint;
-        private void inkCanvas_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            startPoint = e.GetPosition(PaintCanvas);
-        }
+        Shape currentShape = null;
+        //Color selected = inkDA.Color;
+        Brush currentBrush = Brushes.Black;
+        MouseButtonState previousMouseEvent = new MouseButtonState();
+        int currentBrushThickness = 3;
 
-        private void inkCanvas_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Point endPoint = e.GetPosition(PaintCanvas);
-            if (e.LeftButton == MouseButtonState.Released)
-            {
-                if (endPoint != startPoint)
-                {
-                    currentPoint = endPoint;
-                }
-            }
-        }
+        enum ToolType { Line, Rect, Ellipse }
+        ToolType currentTool = ToolType.Line;
+
 
         private void DrawRectangle_Click(object sender, RoutedEventArgs e)
         {
-            PaintCanvas.DefaultDrawingAttributes = inkDA;
-            var rectAttributes = PaintCanvas.DefaultDrawingAttributes;
-            rectAttributes.Width = BrushSlider.Value;
-            rectAttributes.Height = BrushSlider.Value;
-            Color selectedColor = (Color)(BrushColorCombo.SelectedItem as PropertyInfo).GetValue(null, null);
-            PaintCanvas.DefaultDrawingAttributes.Color = selectedColor;
-            rectAttributes.Color = PaintCanvas.DefaultDrawingAttributes.Color;
-            StylusPointCollection points = new StylusPointCollection();
-            points.Add(new StylusPoint(currentPoint.X, currentPoint.Y));
-            points.Add(new StylusPoint(currentPoint.X + 200, currentPoint.Y));
-            points.Add(new StylusPoint(currentPoint.X + 200, currentPoint.Y + 100));
-            points.Add(new StylusPoint(currentPoint.X, currentPoint.Y + 100));
-            points.Add(new StylusPoint(currentPoint.X, currentPoint.Y));
-            Stroke s = new Stroke(points);
-            PaintCanvas.Strokes.Add(s);
+            currentTool = ToolType.Rect;
+            PaintCanvas.EditingMode = InkCanvasEditingMode.None;
         }
 
         private void DrawEllipse_Click(object sender, RoutedEventArgs e)
         {
-            PaintCanvas.DefaultDrawingAttributes = inkDA;
-            StylusPointCollection points = new StylusPointCollection();
-            for (double theta = 0; theta < 2 * Math.PI; theta += 0.01)
+            currentTool = ToolType.Ellipse;
+            PaintCanvas.EditingMode = InkCanvasEditingMode.None;
+        }
+
+        private void inkCanvas_MouseButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+                currentShape = new Line();
+            startPoint = e.GetPosition(PaintCanvas);
+        }
+
+        //private Rectangle currentRect;
+        //private Ellipse currentEllipse;
+
+        //private void inkCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (isDrawing)
+        //    {
+        //        if (RectButton.IsChecked==true)
+        //        {
+        //            currentRect = new Rectangle() { Width = Math.Abs(e.GetPosition(PaintCanvas).X - startPoint.X), Height = Math.Abs(e.GetPosition(PaintCanvas).Y - startPoint.Y), Stroke = Brushes.Black, StrokeThickness = 2 };
+
+        //            InkCanvas.SetLeft(currentRect, Math.Min(startPoint.X, e.GetPosition(PaintCanvas).X));
+        //            InkCanvas.SetTop(currentRect, Math.Min(startPoint.Y, e.GetPosition(PaintCanvas).Y));
+        //            PaintCanvas.Children.Add(currentRect);
+        //        }
+        //        else if (EllipseButton.IsChecked == true)
+        //        {
+        //            currentEllipse = new Ellipse() { Width = Math.Abs(e.GetPosition(PaintCanvas).X - startPoint.X), Height = Math.Abs(e.GetPosition(PaintCanvas).Y - startPoint.Y), Stroke = Brushes.Black, StrokeThickness = 2 };
+        //            InkCanvas.SetLeft(currentEllipse, Math.Min(startPoint.X, e.GetPosition(PaintCanvas).X));
+        //            InkCanvas.SetTop(currentEllipse, Math.Min(startPoint.Y, e.GetPosition(PaintCanvas).Y));
+        //            PaintCanvas.Children.Add(currentEllipse);
+        //        }
+        //        isDrawing = false;
+        //    }
+        //}
+
+        private void inkCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
-                double x = currentPoint.X + 100 * Math.Cos(theta);
-                double y = currentPoint.Y + 50 * Math.Sin(theta);
-                points.Add(new StylusPoint(x, y));
+                PaintCanvas.Children.Remove(currentShape);
+
+                switch (currentTool)
+                {
+                    case ToolType.Line:
+                        drawLine(e);
+                        break;
+                    case ToolType.Rect:
+                        drawRect(e);
+                        break;
+                    case ToolType.Ellipse:
+                        drawEllipse(e);
+                        break;
+                }
             }
-            Stroke s = new Stroke(points);
-            PaintCanvas.Strokes.Add(s);
+            else if (e.LeftButton == MouseButtonState.Released && previousMouseEvent == MouseButtonState.Pressed)
+            {
+                PaintCanvas.Children.Add(currentShape);
+                LineButton.IsChecked = false;
+                RectButton.IsChecked = false;
+                EllipseButton.IsChecked = false;
+            }
+            //previousMouseEvent = e.LeftButton;
+        }
+
+        private void drawRect(MouseEventArgs e)
+        {
+            Rectangle rect = new Rectangle();
+            rect.Width = Math.Abs(startPoint.X - e.GetPosition(PaintCanvas).X);
+            rect.Height = Math.Abs(startPoint.Y - e.GetPosition(PaintCanvas).Y);
+            rect.Stroke = currentBrush;
+            rect.StrokeThickness = currentBrushThickness;
+
+            if (startPoint.X - e.GetPosition(PaintCanvas).X > 0)
+            {
+                InkCanvas.SetLeft(rect, startPoint.X - rect.Width);
+            }
+            else
+            {
+                InkCanvas.SetLeft(rect, startPoint.X);
+            }
+
+            if (startPoint.Y - e.GetPosition(PaintCanvas).Y > 0)
+            {
+                InkCanvas.SetTop(rect, startPoint.Y - rect.Height);
+            }
+            else
+            {
+                InkCanvas.SetTop(rect, startPoint.Y);
+            }
+
+            PaintCanvas.Children.Add(rect);
+            currentShape = rect;
+        }
+
+        private void drawEllipse(MouseEventArgs e)
+        {
+            Ellipse ellipse = new Ellipse();
+            ellipse.Width = Math.Abs(startPoint.X - e.GetPosition(PaintCanvas).X);
+            ellipse.Height = Math.Abs(startPoint.Y - e.GetPosition(PaintCanvas).Y);
+            ellipse.Stroke = currentBrush;
+            ellipse.StrokeThickness = currentBrushThickness;
+
+            if (startPoint.X - e.GetPosition(PaintCanvas).X > 0)
+            {
+                InkCanvas.SetLeft(ellipse, startPoint.X - ellipse.Width);
+            }
+            else
+            {
+                InkCanvas.SetLeft(ellipse, startPoint.X);
+            }
+
+            if (startPoint.Y - e.GetPosition(PaintCanvas).Y > 0)
+            {
+                InkCanvas.SetTop(ellipse, startPoint.Y - ellipse.Height);
+            }
+            else
+            {
+                InkCanvas.SetTop(ellipse, startPoint.Y);
+            }
+
+            PaintCanvas.Children.Add(ellipse);
+            currentShape = ellipse;
+        }
+
+        private void drawLine(MouseEventArgs e)
+        {
+            Line line = new Line();
+            line.Stroke = currentBrush;
+            line.StrokeThickness = currentBrushThickness;
+            line.StrokeStartLineCap = PenLineCap.Round;
+            line.StrokeStartLineCap = PenLineCap.Round;
+            line.X1 = startPoint.X;
+            line.Y1 = startPoint.Y;
+            line.X2 = e.GetPosition(PaintCanvas).X;
+            line.Y2 = e.GetPosition(PaintCanvas).Y;
+
+            PaintCanvas.Children.Add(line);
+            currentShape = line;
+        }
+
+        private void LineButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentTool = ToolType.Line;
+            PaintCanvas.EditingMode = InkCanvasEditingMode.None;
         }
     }
 }

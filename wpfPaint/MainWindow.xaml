@@ -46,12 +46,13 @@
                             <TextBlock Text="Ластик"/>
                         </ComboBoxItem>
                     </ComboBox>
-                    <Button Content="Прямоугольник" Click="DrawRectangle_Click"/>
-                    <Button Content="Овал" Click="DrawEllipse_Click"/>
+                    <ToggleButton x:Name="LineButton" Content="Линия" Width="100" Checked="LineButton_Click"  Margin="0 10 0 10"/>
+                    <ToggleButton x:Name="RectButton" Content="Прямоугольник" Width="100" Checked="DrawRectangle_Click"/>
+                    <ToggleButton x:Name="EllipseButton" Content="Овал" Width="100" Checked="DrawEllipse_Click" Margin="0 10 0 0"/>
                     <Button Content="Сохранить" Click="SaveAsPNG" Width="120" Margin="0 10 0 10"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <InkCanvas Name="PaintCanvas" MouseDown="inkCanvas_MouseDown" MouseUp="inkCanvas_MouseUp"/>
+        <InkCanvas Name="PaintCanvas" MouseDown="inkCanvas_MouseButtonDown" MouseMove="inkCanvas_MouseMove"/>
     </DockPanel>
 </Window>
